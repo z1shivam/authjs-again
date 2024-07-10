@@ -11,6 +11,7 @@ import { ErrorToast } from "../global/ErrorToast";
 import { SuccessToast } from "../global/SuccessToast";
 import CustomFormField from "./FormField";
 import SubmitButton from "../global/SubmitButton";
+import { loginByUsername } from "@/server/loginAction";
 
 export default function UsernameLogin() {
   const [error, setError] = useState("");
@@ -28,6 +29,16 @@ export default function UsernameLogin() {
 
   const usernameLoginHandler = (data: z.infer<typeof UsernameLoginSchema>) => {
     console.log(data);
+    startLogin(async () => {
+      setError("");
+      setSuccess("");
+      const loginResponse = await loginByUsername();
+      if (loginResponse.success) {
+        setSuccess(loginResponse.message);
+      } else {
+        setError(loginResponse.error);
+      }
+    });
   };
 
   return (

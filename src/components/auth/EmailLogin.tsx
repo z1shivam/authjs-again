@@ -11,6 +11,7 @@ import { ErrorToast } from "../global/ErrorToast";
 import { SuccessToast } from "../global/SuccessToast";
 import CustomFormField from "./FormField";
 import SubmitButton from "../global/SubmitButton";
+import { loginByEmail } from "@/server/loginAction";
 
 export default function EmailLogin() {
   const [error, setError] = useState("");
@@ -27,6 +28,16 @@ export default function EmailLogin() {
 
   const emailLoginHandler = (data: z.infer<typeof EmailLoginSchema>) => {
     console.log(data);
+    startLogin(async () => {
+      setError("");
+      setSuccess("");
+      const loginResponse = await loginByEmail();
+      if (loginResponse.success) {
+        setSuccess(loginResponse.message);
+      } else {
+        setError(loginResponse.error);
+      }
+    });
   };
 
   return (
@@ -59,7 +70,9 @@ export default function EmailLogin() {
             type="password"
             placeholder="********"
           />
-          <SubmitButton isPending={isLoggingIn} className="w-full">Login</SubmitButton>
+          <SubmitButton isPending={isLoggingIn} className="w-full">
+            Login
+          </SubmitButton>
         </form>
       </Form>
     </AuthCardWrapper>
