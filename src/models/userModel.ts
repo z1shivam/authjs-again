@@ -1,6 +1,6 @@
-import { Schema, model, models } from "mongoose";
+import { Model, Schema, model, models } from "mongoose";
 
-export default interface IUser {
+interface User {
   name: string;
   email: string;
   username: string;
@@ -24,6 +24,7 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
+    select:false
   },
   googleId: {
     type: String,
@@ -33,4 +34,5 @@ const userSchema = new Schema({
   },
 });
 
-export const User = models?.User || model("User", userSchema);
+ const User = models?.User as Model<User> || model("User", userSchema);
+ export default User

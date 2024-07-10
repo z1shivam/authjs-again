@@ -1,28 +1,19 @@
 import { env } from "@/env";
-import { connect } from "mongoose";
+import mongoose from "mongoose";
 
-type ConnectionObject = {
-  isConnected?: number;
-};
-
-const connection: ConnectionObject = {};
+let isConnected = false; // Track the connection state
 
 async function dbConnect(): Promise<void> {
-  if (connection.isConnected) {
+  if (isConnected) {
     console.log(`Already connected to DB.`);
     return;
   }
   try {
-    const db = await connect(
-      `${env.MONGO_URL}/${env.MONGO_DB}` || "",
-      {},
-    );
-    if (db.connections && db.connections[0]) {
-      connection.isConnected = db.connections[0].readyState;
-      console.log(`DB connected Successfully! - ${db.connection.host}`);
-    } else {
-      throw new Error("No connections available");
-    }
+    const db = await mongoose.connect(env.MONGO_URL, {
+      dbName: env.MONGO_DB,
+    });
+    isConnected = db.connections[0]!.readyState === 1;
+    console.log(`DB connected successfully! - ${db.connection.host}`);
   } catch (error) {
     console.log(`DB connection failed. - ${error}`);
     process.exit(1);

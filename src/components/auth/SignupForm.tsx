@@ -39,7 +39,7 @@ export default function SignupForm() {
         setError(registerReturn.error);
         if (registerReturn.success) form.reset();
       } catch (err) {
-        setError(`An error occurred. - ${err}`);
+        setError(`${err}`);
       }
     });
   }; 
