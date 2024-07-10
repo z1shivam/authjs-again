@@ -39,10 +39,10 @@ export default function SignupForm() {
         setError(registerReturn.error);
         if (registerReturn.success) form.reset();
       } catch (err) {
-        setError("An error occurred. Please try again.");
+        setError(`An error occurred. - ${err}`);
       }
     });
-  };
+  }; 
 
   return (
     <AuthCardWrapper

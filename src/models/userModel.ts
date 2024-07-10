@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-interface IUser {
+export default interface IUser {
   name: string;
   email: string;
   username: string;
@@ -33,5 +33,4 @@ const userSchema = new Schema({
   },
 });
 
-const User = models?.User || model("User", userSchema);
-export default User
+export const User = models?.User || model("User", userSchema);
