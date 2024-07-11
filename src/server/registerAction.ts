@@ -41,7 +41,7 @@ const existingUser = await User.findOne({ username: values.username });
     name: values.name,
     email: values.email,
     username: values.username,
-    password: hashedPassword,
+    passwordHash: hashedPassword,
     githubId: "",
     googleId: "",
   });

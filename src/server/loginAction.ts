@@ -10,8 +10,8 @@ export const loginByEmail = async (
   console.log(values);
   try {
     await signIn("credentials", {
-      iemail: values.email,
-      ipassword: values.password,
+      email: values.email,
+      password: values.password,
       redirect: false,
     });
     return {
