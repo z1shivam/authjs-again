@@ -32,7 +32,7 @@ export default function UsernameLogin() {
     startLogin(async () => {
       setError("");
       setSuccess("");
-      const loginResponse = await loginByUsername();
+      const loginResponse = await loginByUsername(data);
       if (loginResponse.success) {
         setSuccess(loginResponse.message);
       } else {

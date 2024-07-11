@@ -31,7 +31,7 @@ export default function EmailLogin() {
     startLogin(async () => {
       setError("");
       setSuccess("");
-      const loginResponse = await loginByEmail();
+      const loginResponse = await loginByEmail(data);
       if (loginResponse.success) {
         setSuccess(loginResponse.message);
       } else {
